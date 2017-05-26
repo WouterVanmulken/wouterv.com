@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<title>Wouterv.com</title>
+
+	<!-- Icon Source : http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/terminal-icon.html -->
+	<link rel="icon" type="image/png" href="terminal-icon.png" />
+	
+	<style type="text/css">
+		html, body {
+			font-family: monospace;
+			background-color: #222;
+			color :white improtant;
+		}
+		textarea, input 
+		{ 
+			outline: none;
+			width: 100%;
+			background-color: #222;
+			border: none;
+			height: 300px;
+			resize: none;
+			margin: 0px;
+			padding: 0px;
+		}
+		a{
+			color: lightblue;
+		}
+		#user {
+			display:inline-block;
+			/*margin-right:10px;*/
+			/*float:left;*/
+			/*width:180px;*/
+		} 
+		#input {
+			display:inline-block;
+			width: 100%;
+			/*margin-left: 190px;*/
+		} 
+		.green{
+			color: lightgreen;
+		}
+		.yellow{
+			color: yellow;
+		}
+		.lightblue{
+			color :lightblue;
+		}
+		.white{
+			color :white;
+		}
+
+
+	</style>
+</head>
+<body id="body">
+	<pre class="lightblue">
+ __      __              __                 ____   ____                           .__   __                  
+/  \    /  \____  __ ___/  |_  ___________  \   \ /   /____    ____   _____  __ __|  | |  | __ ____   ____  
+\   \/\/   /  _ \|  |  \   __\/ __ \_  __ \  \   Y   /\__  \  /    \ /     \|  |  \  | |  |/ // __ \ /    \ 
+ \        (  <_> )  |  /|  | \  ___/|  | \/   \     /  / __ \|   |  \  Y Y  \  |  /  |_|    <\  ___/|   |  \
+  \__/\  / \____/|____/ |__|  \___  >__|       \___/  (____  /___|  /__|_|  /____/|____/__|_ \\___  >___|  /
+       \/                         \/                       \/     \/      \/                \/    \/     \/ 
+</pre>
+	<div id="text" class="lightblue">
+		<p>Welcome to my website, to get started type "help" or "man" in the command line.</p>
+	</div>
+	<div id="history"></div>
+	<form autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		<span id="user" class="green">user@wouterv.com:</span>
+		<span class="yellow">~/</span>
+		<span class="lightblue">$</span> 
+		<textarea id="input" class="white" ></textarea>
+	</form>
+
+	<script>
+		var helpCommand = function(){
+			console.log("help");
+			nextLine(true);
+			var content = "<br/>Possible commands : ";
+			for(key in commandsDict){
+				content+="<br/> - " + key; 
+			} 
+			content+="<br/><br/>";
+			document.getElementById("history").innerHTML += "<br/><span class=\"white\">" + content+"</span>";
+
+
+		}
+		var aboutCommand = function(){
+			console.log("about");
+			nextLine(true);
+			var content = "";
+			content +="<pre>";
+			content+="I'm a "+calculateAge()+" student software engineer in the netherlands.";
+			content+="<br/>";
+			content+="</pre>";
+			
+			document.getElementById("history").innerHTML += "<br/><span class=\"white\">" + content+"</span>";
+
+		}
+		function calculateAge() {
+			var birthday = new Date(1995,8,28);
+			var ageDifMs = Date.now() - birthday.getTime();
+    		var ageDate = new Date(ageDifMs);
+    		return Math.abs(ageDate.getUTCFullYear() - 1970);
+		}
+		var skillsCommand = function(){
+			console.log("skills");
+			nextLine(true);
+			var content="";
+			content +="<pre>";
+			content+="C#          : |######################################------------|";
+			content+="<br/>";
+			content+="Java        : |####################################--------------|";
+			content+="<br/>";
+			content+="SQL         : |################################------------------|";
+			content+="<br/>";
+			content+="Servers     : |#############################---------------------|";
+			// content+="<br/>";
+			content+="</pre>";
+
+			document.getElementById("history").innerHTML += "<br/><span class=\"white\">" + content+"</span>";
+
+		}
+		var contactCommand = function(){
+			console.log("contact");
+			nextLine(true);
+			var content = "";
+			content +="<pre>";
+			content+="E-mail       : <a href=\"mailto:woutervanmulken@msn.com\">woutervanmulken@msn.com</a>";
+			content+="<br/>";
+			content+="Github       : <a href=\"https://github.com/WouterVanmulken\">WouterVanmulken</a>";
+			content+="<br/>";
+			content+="Telegram     : <a href=\"https://t.me/wouterv\">wouterv</a>";
+			content+="<br/>";
+			content+="</pre>";
+			
+			document.getElementById("history").innerHTML += "<br/><span class=\"white\">" + content+"</span>";
+
+
+		}
+		var clearCommand = function(){
+			console.log("clear");
+			document.getElementById("history").innerHTML = "";
+			input.value = "";
+		}
+		var commandsDict = {
+			"Help":helpCommand,
+			"Man":helpCommand,
+			"About":aboutCommand,
+			"Skills":skillsCommand,
+			"Contact":contactCommand,
+			"Clear":clearCommand
+		};
+		var input = document.getElementById("input");
+
+		document.onkeydown = function(e) {
+			if(event.keyCode == 9 || event.keyCode == 13) {
+				event.preventDefault();
+				var commandFound=false;
+				for(var key in commandsDict){
+					if(key.toLowerCase().startsWith(input.value.toLowerCase())){
+						input.value = key;
+						if(event.keyCode == 13){
+							commandsDict[key]();	
+							commandFound = true;
+						}
+						break;
+					}	
+				}
+				if(!commandFound && event.keyCode == 13){
+					nextLine(false);
+				}
+				if(event.keyCode == 13){
+					document.body.scrollTop = document.body.scrollHeight;
+				}
+			}
+		};
+		function nextLine(commandFound){
+			var history = document.getElementById("history");
+			var commandLine="";
+
+			commandLine+="<span id=\"user\" class=\"green\">user@wouterv.com:</span>";
+			commandLine+="<span class=\"yellow\"> ~/ </span>";
+			commandLine+="<span class=\"lightblue\"> $ </span>";
+
+
+			var line = "<br/><span class=\"white\">"+input.value;
+			if(!commandFound){
+				line+=": command not found.<br/>";
+			}
+			line+="</span>";
+
+			history.innerHTML += commandLine;
+			history.innerHTML += line;
+			
+			input.value = '';
+		}
+		setInterval(function(){
+			input.focus();
+		});
+		input.value = "Help";
+		helpCommand();
+
+	</script>
+</body>
+</html>
