@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- webvr -->
+    <!-- <script src="https://end3r.github.io/MDN-Games-3D/A-Frame/js/aframe.min.js" /> -->
+
+    <style>
+        html {
+            background-color: black;
+        }
+
+        #character-image img {
+            padding: 2% 5% 5% 5%;
+            padding: 5%;
+            max-width: 80%;
+            max-height: 50%;
+            /* height: auto; */
+        }
+
+        #character-text {
+            /* width: 100%; */
+        }
+
+        .boxed-text {
+            /* Border */
+            border: 5px solid white;
+
+            /* Text */
+            font-family: monospace;
+            font-size: 3em;
+            color: white;
+        }
+
+        .block-formatting {
+
+            /*  Block formatting*/
+            width: 77%;
+            margin-left: 10%;
+            padding: 2, 5%;
+
+        }
+
+        .yesno {
+            margin-top: 3%;
+            width: 30%;
+            margin-left: 12%;
+            float: left;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center">
+        <div id="character-image">
+            <img src="pixelated.jpg" />
+        </div>
+        <div id="character-text" class="boxed-text block-formatting typewriter">
+            So you want to see some 3D ?
+        </div>
+        <div id="choices">
+            <a href="3D.html">
+                <div id="yes" class="boxed-text block-formatting yesno">
+                    Yes
+                </div>
+            </a>
+            <a href="../index.html">
+                <div id="no" class="boxed-text block-formatting yesno">
+                    No
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- <p>Hello, world!</p>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="js/script.js"></script> -->
+</body>
+
+</html>
