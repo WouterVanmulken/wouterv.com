@@ -1,14 +1,58 @@
 <html>
-  <head>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-  </head>
-  <body>
+
+<head>
+    <script src="./js/aframe.min.js"></script>
+    <script src="./js/aframe-text-geometry-component.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
     <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
+        <!-- Credits to https://www.pluralsight.com/guides/build-a-multiplayer-vr-app-that-works-in-realtime-in-less-than-10-minutes -->
+        <a-assets>
+            <img src="./assets/grid.png" id="grid" crossorigin="anonymous">
+            <img id="sky" src="./assets/background.jpg" crossorigin="anonymous" />
+        </a-assets>
+
+        <a-entity id="#rig" position="0 0 -5">
+            <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+            <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+            <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+        </a-entity>
+
+        <a-entity position="0 0 -30">
+            <a-image src="./assets/pixelated.jpg" width="50" height="50"></a-image>
+        </a-entity>
+
+        <a-entity position="5 20 -29.9" scale="5 5 2">
+            <a-entity text-geometry="value: 3D enough?" material="color: white;"></a-entity>
+        </a-entity>
+
+
+
+        <!--adds the grid to give a perspective of distance-->
+        <a-entity geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
+        </a-entity>
+
+        <!-- adds the lighting to make the scene more realistic -->
+        <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+        <a-entity light="color: ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+        <a-entity light="color: white; intensity: 0.5" position="-5 5 15"></a-entity>
+        <a-entity light="color: white; type: ambient;"></a-entity>
+
+        <!--adds the sky-->
+        <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+        <a-entity position="0 -5 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
+        </a-entity>
+
+
+        <!-- Credits to  https://www.newgrounds.com/audio/listen/700631-->
+        <!-- <audio autoplay="true" src="./assets/700631_Karaplex---Dark-Neon-Synth (1).mp3" style="display: none;"> -->
+
     </a-scene>
-  </body>
+</body>
+
 </html>
